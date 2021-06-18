@@ -21,7 +21,8 @@
     chart_version: 12.12.0
     values: "{{ lookup('template', 'kafka-values.yaml.j2', variable_start_string='[%', variable_end_string='%]') | from_yaml | combine(kafka_chart_values, recursive=True) }}"
     wait: yes
-    wait_timeout: 15m
+    wait_timeout: 1m
+    # wait_timeout: 15m
 
 - name: Deploy elasticsearch
   community.kubernetes.helm:
@@ -33,7 +34,8 @@
     chart_version: 14.5.3
     values: "{{ lookup('template', 'elasticsearch-values.yaml.j2', variable_start_string='[%', variable_end_string='%]') | from_yaml | combine(elasticsearch_chart_values, recursive=True) }}"
     wait: yes
-    wait_timeout: 15m
+    wait_timeout: 1m
+    # wait_timeout: 15m
 
 - name: Add user to passwd
   community.general.htpasswd:
