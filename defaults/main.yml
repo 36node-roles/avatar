@@ -1,24 +1,23 @@
 ---
+state: present
 namespace: data
-storage_class: "-"
+storage_class: null
 cert_issuer: "letsencrypt-http"
+wait: no
+ingress_class: traefik
 
 ## vector
-vector_state: present
+vector_state: "{{ state }}"
 kafka_bootstrap_server: "kafka.{{ namespace }}:9092" # required
 elasticsearch_endpoint: "http://elasticsearch-coordinating-only.{{ namespace }}:9200" # required
 
-## kafka
-kafka_state: present
-kafka_replicas: 1
-kafka_storage_size: 8Gi
+## alias
+kafka_state: "{{ state }}"
+kafka_storage_class: "{{ storage_class }}"
+elasticsearch_state: "{{ state }}"
+elasticsearch_storage_class: "{{ storage_class }}"
 
-## elasticsearch
-elasticsearch_state: present
-elasticsearch_master_replicas: 2
-elasticsearch_data_replicas: 2
-elasticsearch_master_storage_size: 8Gi
-elasticsearch_data_storage_size: 8Gi
+## kibana
 kibana_basic_auth_users:
   - { name: "walle", password: "hello" }
 

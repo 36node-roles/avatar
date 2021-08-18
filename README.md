@@ -23,13 +23,28 @@ helm status vector -n { namespace }
 ## 用 kafkacat 进行测试
 
 ```
+## 通常已经部署
 kubectl run kafka-client --restart='Never' --image confluentinc/cp-kafkacat --command -- sleep infinity
+
+## 进入
 kubectl exec --tty -i kafka-client -- bash
 
-kafkacat -b kafka.data:9092 -C -t tbox -o end
+## 消费
+kafkacat -b kafka.avatar:9092 -C -t xxtopic -o end
 
+## 生产
+kafkacat -b kafka.avatar:9092 -t xxtopic  -P
 ```
 
 ## 清理索引的方法
 
 https://www.ibm.com/docs/en/cloud-private/3.2.0?topic=configuration-manually-removing-log-indices
+
+## Develop guide
+
+Link to local installed role for convenience.
+
+```
+rm -rf /Users/zzs/.ansible/roles/36node.avatar
+ln -s $PWD /Users/zzs/.ansible/roles/36node.avatar
+```

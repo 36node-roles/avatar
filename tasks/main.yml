@@ -11,16 +11,16 @@
     name: bitnami
     repo_url: "https://charts.bitnami.com/bitnami"
 
-- name: Deploy kafka 2.12-2.7.0
+- name: Deploy kafka
   community.kubernetes.helm:
     state: "{{ kafka_state }}"
     name: kafka
     namespace: "{{ namespace }}"
     create_namespace: true
     chart_ref: bitnami/kafka
-    chart_version: 12.12.0
-    values: "{{ lookup('template', 'kafka-values.yaml.j2', variable_start_string='[%', variable_end_string='%]') | from_yaml | combine(kafka_chart_values, recursive=True) }}"
-    wait: yes
+    chart_version: 14.0.1
+    values: "{{ lookup('template', 'kafka-values.yaml.j2') | from_yaml | combine(kafka_chart_values, recursive=True) }}"
+    wait: "{{ wait }}"
     wait_timeout: 15m
 
 - name: Deploy elasticsearch
@@ -30,9 +30,9 @@
     namespace: "{{ namespace }}"
     create_namespace: true
     chart_ref: bitnami/elasticsearch
-    chart_version: 14.5.3
-    values: "{{ lookup('template', 'elasticsearch-values.yaml.j2', variable_start_string='[%', variable_end_string='%]') | from_yaml | combine(elasticsearch_chart_values, recursive=True) }}"
-    wait: yes
+    chart_version: 15.10.3
+    values: "{{ lookup('template', 'elasticsearch-values.yaml.j2') | from_yaml | combine(elasticsearch_chart_values, recursive=True) }}"
+    wait: "{{ wait }}"
     wait_timeout: 15m
 
 - name: Add user to passwd
@@ -61,5 +61,5 @@
     namespace: "{{ namespace }}"
     create_namespace: true
     chart_ref: timberio/vector-agent
-    chart_version: 0.12.1
+    chart_version: 0.15.2
     values: "{{ lookup('template', 'vector-values.yaml.j2', variable_start_string='[%', variable_end_string='%]') | from_yaml | combine(vector_chart_values, recursive=True) }}"
