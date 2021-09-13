@@ -2,11 +2,13 @@
 
 安装 kafka、elasticsearch、vector，并配置 basic-auth 的 ingress
 
-# 其他
-
 阿凡达，寓意信息的链接
 
 Avatar 是 36node 团队采用的消息总线方案，用于日志采集和微服务间的异步通知。
+
+## 依赖
+
+ansible-galaxy collection install community.general
 
 ## 访问方式
 
