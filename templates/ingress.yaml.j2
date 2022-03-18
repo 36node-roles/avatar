@@ -6,8 +6,6 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "{{ ingress_class }}"
     cert-manager.io/cluster-issuer: "{{ cert_issuer }}"
-    ingress.kubernetes.io/auth-type: "basic"
-    ingress.kubernetes.io/auth-secret: "basic-auth"
 spec:
   rules:
     - host: "kibana.{{ domain }}"

@@ -17,10 +17,6 @@ kafka_storage_class: "{{ storage_class }}"
 elasticsearch_state: "{{ state }}"
 elasticsearch_storage_class: "{{ storage_class }}"
 
-## kibana
-kibana_basic_auth_users:
-  - { name: "walle", password: "hello" }
-
 # other chart values
 vector_chart_values: {}
 elasticsearch_chart_values: {}

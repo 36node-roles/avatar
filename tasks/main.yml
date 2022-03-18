@@ -30,23 +30,10 @@
     namespace: "{{ namespace }}"
     create_namespace: true
     chart_ref: bitnami/elasticsearch
-    chart_version: 15.10.3
+    chart_version: 17.9.14
     values: "{{ lookup('template', 'elasticsearch-values.yaml.j2') | from_yaml | combine(elasticsearch_chart_values, recursive=True) }}"
     wait: "{{ wait }}"
     wait_timeout: 15m
-
-- name: Add user to passwd
-  community.general.htpasswd:
-    path: /tmp/passwd
-    name: "{{ item.name }}"
-    password: "{{ item.password }}"
-  with_items: "{{ kibana_basic_auth_users }}"
-
-- name: Create basic-auth secret
-  community.kubernetes.k8s:
-    state: "{{ elasticsearch_state }}"
-    namespace: "{{ namespace }}"
-    template: basic-auth.yaml.j2
 
 - name: Create ingress
   community.kubernetes.k8s:
