@@ -6,6 +6,8 @@ cert_issuer: "letsencrypt-http"
 wait: no
 ingress_class: traefik
 
+kibana_tls: true
+
 ## vector
 vector_state: "{{ state }}"
 kafka_bootstrap_server: "kafka.{{ namespace }}:9092" # required

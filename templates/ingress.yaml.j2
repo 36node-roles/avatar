@@ -1,3 +1,4 @@
+#jinja2: lstrip_blocks: "True", trim_blocks: "True"
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -5,7 +6,9 @@ metadata:
   name: elasticsearch
   annotations:
     kubernetes.io/ingress.class: "{{ ingress_class }}"
+    {% if kibana_tls %}
     cert-manager.io/cluster-issuer: "{{ cert_issuer }}"
+    {% endif %}
 spec:
   rules:
     - host: "kibana.{{ domain }}"
@@ -15,7 +18,9 @@ spec:
               serviceName: elasticsearch-kibana
               servicePort: 5601
             path: /
+  {% if kibana_tls %}
   tls:
     - secretName: "kibana.{{ domain }}"
       hosts:
         - "kibana.{{ domain }}"
+  {% endif %}
