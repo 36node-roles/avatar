@@ -11,6 +11,12 @@
     name: bitnami
     repo_url: "https://charts.bitnami.com/bitnami"
 
+- name: Add vector chart repo
+  community.kubernetes.helm_repository:
+    state: present
+    name: vector
+    repo_url: "https://helm.vector.dev"
+
 - name: Deploy kafka
   community.kubernetes.helm:
     state: "{{ kafka_state }}"
@@ -18,7 +24,7 @@
     namespace: "{{ namespace }}"
     create_namespace: true
     chart_ref: bitnami/kafka
-    chart_version: 14.0.1
+    chart_version: 18.0.0
     values: "{{ lookup('template', 'kafka-values.yaml.j2') | from_yaml | combine(kafka_chart_values, recursive=True) }}"
     wait: "{{ wait }}"
     wait_timeout: 15m
@@ -30,7 +36,7 @@
     namespace: "{{ namespace }}"
     create_namespace: true
     chart_ref: bitnami/elasticsearch
-    chart_version: 17.9.14
+    chart_version: 18.2.15
     values: "{{ lookup('template', 'elasticsearch-values.yaml.j2') | from_yaml | combine(elasticsearch_chart_values, recursive=True) }}"
     wait: "{{ wait }}"
     wait_timeout: 15m
@@ -47,6 +53,6 @@
     name: vector
     namespace: "{{ namespace }}"
     create_namespace: true
-    chart_ref: timberio/vector-agent
-    chart_version: 0.15.2
+    chart_ref: vector/vector
+    chart_version: 0.13.2
     values: "{{ lookup('template', 'vector-values.yaml.j2', variable_start_string='[%', variable_end_string='%]') | from_yaml | combine(vector_chart_values, recursive=True) }}"

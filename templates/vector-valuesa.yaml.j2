@@ -1,16 +1,15 @@
 role: Agent
 
 customConfig:
-  data_dir: /vector-data-dir
-  api:
-    enabled: true
-    address: 127.0.0.1:8686
-    playground: false
+  # Sources to add to the generated `vector` config (besides "built-in" kubernetes
+  # logs source).
   sources:
     kubernetes_logs:
       type: kubernetes_logs
       auto_partial_merge: true
       extra_label_selector: vector.dev/enable=true
+
+  # Transforms to add to the generated `vector` config.
   transforms:
     json:
       type: remap
@@ -31,6 +30,8 @@ customConfig:
       inputs: 
         - json
       condition: .topic != null
+
+  # Sinks to add to the generated `vector` config.
   sinks:
     kafka:
       type: kafka
@@ -38,8 +39,8 @@ customConfig:
         - withTopic
       bootstrap_servers: "[% kafka_bootstrap_server %]"
       compression: none
-      key_field: timestamp
-      topic: "{{`{{ topic }}`}}"
+      key_field: time
+      topic: "{{ topic }}"
       encoding:
         codec: json
     elasticsearch:
@@ -48,13 +49,5 @@ customConfig:
         - kubernetes_logs
       endpoint: "[% elasticsearch_endpoint %]"
       bulk:
-        index: "vector-{{`{{ kubernetes.pod_namespace }}`}}-{{`{{ kubernetes.pod_labels.name }}`}}-%F"
+        index: "{{ .kubernetes.pod_namespace }}-{{ .kubernetes.pod_labels.name }}-%F"
       suppress_type_name: true
-
-service:
-  enabled: true
-  ports:
-  - name: api
-    port: 8686
-    protocol: TCP
-    targetPort: 8686

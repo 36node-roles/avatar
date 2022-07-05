@@ -12,7 +12,7 @@ ansible-galaxy collection install community.general
 
 ## 访问方式
 
-https://kibana.{domain}
+<https://kibana.{domain>}
 
 ## 查看状态
 
@@ -40,13 +40,13 @@ kafkacat -b kafka.avatar:9092 -t xxtopic  -P
 
 ## 清理索引的方法
 
-https://www.ibm.com/docs/en/cloud-private/3.2.0?topic=configuration-manually-removing-log-indices
+<https://www.ibm.com/docs/en/cloud-private/3.2.0?topic=configuration-manually-removing-log-indices>
 
 ## Develop guide
 
 Link to local installed role for convenience.
 
-```
+```sh
 rm -rf /Users/zzs/.ansible/roles/36node.avatar
 ln -s $PWD /Users/zzs/.ansible/roles/36node.avatar
 ```

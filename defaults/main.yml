@@ -10,8 +10,8 @@ kibana_tls: true
 
 ## vector
 vector_state: "{{ state }}"
-kafka_bootstrap_server: "kafka.{{ namespace }}:9092" # required
-elasticsearch_endpoint: "http://elasticsearch-coordinating-only.{{ namespace }}:9200" # required
+kafka_bootstrap_server: "kafka:9092" # required
+elasticsearch_endpoint: "http://elasticsearch:9200" # required
 
 ## alias
 kafka_state: "{{ state }}"
