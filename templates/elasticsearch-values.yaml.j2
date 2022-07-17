@@ -1,13 +1,17 @@
 data:
-  replicas: 2
+  replicaCount: 2
   persistence:
     storageClass: "{{ elasticsearch_storage_class }}"
     size: 8Gi
+coordinating:
+  replicaCount: 1
+ingest:
+  replicaCount: 1
 fullnameOverride: elasticsearch
 global:
   kibanaEnabled: true
 master:
-  replicas: 1
+  replicaCount: 1
   persistence:
     storageClass: "{{ elasticsearch_storage_class }}"
     size: 2Gi

@@ -41,12 +41,6 @@
     wait: "{{ wait }}"
     wait_timeout: 15m
 
-- name: Create ingress
-  community.kubernetes.k8s:
-    state: "{{ elasticsearch_state }}"
-    namespace: "{{ namespace }}"
-    template: ingress.yaml.j2
-
 - name: Deploy vector
   community.kubernetes.helm:
     state: "{{ vector_state }}"

@@ -24,7 +24,7 @@ helm status vector -n { namespace }
 
 ## 用 kafkacat 进行测试
 
-```
+```sh
 ## 通常已经部署
 kubectl run kafka-client --restart='Never' --image confluentinc/cp-kafkacat --command -- sleep infinity
 
@@ -36,6 +36,12 @@ kafkacat -b kafka.avatar:9092 -C -t xxtopic -o end
 
 ## 生产
 kafkacat -b kafka.avatar:9092 -t xxtopic  -P
+```
+
+## 查看 kibana
+
+```sh
+kubectl -n avatar port-forward svc/elasticsearch-kibana 5601:5601
 ```
 
 ## 清理索引的方法
