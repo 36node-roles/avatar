@@ -42,14 +42,14 @@ customConfig:
       topic: "{{`{{ topic }}`}}"
       encoding:
         codec: json
-    elasticsearch:
-      type: elasticsearch
-      inputs: 
-        - kubernetes_logs
-      endpoint: "[% elasticsearch_endpoint %]"
-      bulk:
-        index: "vector-{{`{{ kubernetes.pod_namespace }}`}}-{{`{{ kubernetes.pod_labels.name }}`}}-%F"
-      suppress_type_name: true
+##    elasticsearch:
+##      type: elasticsearch
+##      inputs: 
+##        - kubernetes_logs
+##      endpoint: "[% elasticsearch_endpoint %]"
+##      bulk:
+##        index: "vector-{{`{{ kubernetes.pod_namespace }}`}}-{{`{{ kubernetes.pod_labels.name }}`}}-%F"
+##      suppress_type_name: true
 
 service:
   enabled: true

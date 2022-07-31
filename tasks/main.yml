@@ -29,17 +29,17 @@
     wait: "{{ wait }}"
     wait_timeout: 15m
 
-- name: Deploy elasticsearch
-  community.kubernetes.helm:
-    state: "{{ elasticsearch_state }}"
-    name: elasticsearch
-    namespace: "{{ namespace }}"
-    create_namespace: true
-    chart_ref: bitnami/elasticsearch
-    chart_version: 18.2.15
-    values: "{{ lookup('template', 'elasticsearch-values.yaml.j2') | from_yaml | combine(elasticsearch_chart_values, recursive=True) }}"
-    wait: "{{ wait }}"
-    wait_timeout: 15m
+# - name: Deploy elasticsearch
+#   community.kubernetes.helm:
+#     state: "{{ elasticsearch_state }}"
+#     name: elasticsearch
+#     namespace: "{{ namespace }}"
+#     create_namespace: true
+#     chart_ref: bitnami/elasticsearch
+#     chart_version: 18.2.15
+#     values: "{{ lookup('template', 'elasticsearch-values.yaml.j2') | from_yaml | combine(elasticsearch_chart_values, recursive=True) }}"
+#     wait: "{{ wait }}"
+#     wait_timeout: 15m
 
 - name: Deploy vector
   community.kubernetes.helm:

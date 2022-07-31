@@ -2,3 +2,7 @@ replicaCount: 1
 persistence:
   storageClass: "{{ kafka_storage_class }}"
   size: 2Gi
+resources:
+  requests:
+    cpu: 50m
+    memory: 100Mi
